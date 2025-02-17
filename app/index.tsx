@@ -47,10 +47,10 @@ export default function App() {
       <View>
 
       </View>
-      <View style={{position: "absolute", top: 200}}>
+      <View style={{position: "absolute", top: 300}}>
         <View style={{flexDirection: "row", flexWrap: "wrap", width: 400, alignSelf: "center"}}>
           {keyboard.map(item => (
-            <Pressable style={[{backgroundColor: "#302E2E", width: 70, height: 70, marginTop: 20, justifyContent: "center", borderRadius: 50, marginLeft: 20}, item.text == "done" ? {height: 165} : {height: 70}]}>
+            <Pressable key={item.text} style={[{backgroundColor: "#302E2E", width: 70, height: 70, marginTop: 20, justifyContent: "center", borderRadius: 50, marginLeft: 20}, item.text == "done" ? {height: 165} : {height: 70}]}>
               {item.text != "delete" ? <Text style={{color: "white", textAlign: "center", textShadowRadius: 30, textShadowColor: "white", fontSize: 40, fontFamily: "MyCustomFont"}}>{item.text}</Text> : <View style={{alignSelf: "center", shadowColor: "white", shadowRadius: 30, shadowOpacity: 1, shadowOffset: {width: 0, height: 0}}}><Delete/></View>}
             </Pressable>
           ))}
