@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "number_x",
-    "slug": "number_x",
+    "slug": "numberx",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/main_icon.png",
@@ -13,9 +13,10 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "foregroundImage": "./assets/images/main_icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.markus.number_X"
     },
     "web": {
       "bundler": "metro",
@@ -37,6 +38,15 @@
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "b652f110-2e24-4f1d-8752-25bbca279ea2"
+      }
+    },
+    "owner": "20markus08"
   }
 }

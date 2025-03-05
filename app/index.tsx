@@ -1,62 +1,50 @@
 import React, { useEffect } from 'react';
-import { ImageBackground, Text, View, Image, Dimensions, SafeAreaView, StatusBar, FlatList, Pressable } from 'react-native';
-import * as Font from 'expo-font';
-import { SettingsButton } from '@/components/SettingsButton/SettingButton';
-import { Delete } from '@/assets/icons/delete';
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { GamePage } from './pages/GamePage/GamePage';
+import { StartPage } from './pages/StartPage/StartPage';
+import { Provider, useDispatch, useSelector, UseSelector } from 'react-redux';
+import { RootState, Store } from '@/store';
+import { StatusBar } from 'react-native';
+import { colors } from '@/constants/Colors';
+import { LeadersPage } from './pages/LeadersPage/LeadersPage';
+import { setLevel } from '@/store/slices/level.slice';
+import { GetFromAsyncStorage } from '@/utils/AsyncStorage';
+import { setTheme } from '@/store/slices/theme.slice';
+import { setScore } from '@/store/slices/score.slice';
 
-const loadFonts = async (setFontsLoaded : any) => {
-  await Font.loadAsync({
-    'MyCustomFont': require('../assets/fonts/NicoMoji-Regular.ttf'),
-    "SecondCustomFont": require("../assets/fonts/Jaini-Regular.ttf")
-  });
-  setFontsLoaded(true);
-};
+const Stack = createNativeStackNavigator();
 
-export default function App() {
-  const [fontsLoaded, setFontsLoaded] = React.useState(false);
 
-  useEffect(() => {
-    loadFonts(setFontsLoaded);
-  }, []);
+const AppContent = () => {
+  const dispatcher = useDispatch()
+  useEffect(() => {   
+    const loadData = async () => {
+      const level = await GetFromAsyncStorage('level')
+      const theme = await GetFromAsyncStorage('theme')
+      const bestScore = await GetFromAsyncStorage('bestScore')
 
-  const keyboard = [
-    {text: "7", status: " "},
-    {text: "8", status: " "},
-    {text: "9", status: "last"},
-    {text: "+", status: " "},
-    {text: "4", status: " "},
-    {text: "5", status: " "},
-    {text: "6", status: "last"},
-    {text: "-", status: " "},
-    {text: "1", status: " "},
-    {text: "2", status: " "},
-    {text: "3", status: "last"},
-    {text: "done", status: " "},
-    {text: "0", status: " "},
-    {text: ".", status: " "},
-    {text: "delete", status: "last"},
-    
-  ]
-  
+      console.log(level, theme, bestScore)
+      
+      dispatcher(setLevel(level === 'Easy' || level === 'Medium' || level === 'Hard' ? level : 'Easy'));
+      dispatcher(setTheme(theme === 'sakura' || theme === 'city' || theme === 'forest' ? theme : 'sakura'));
+      dispatcher(setScore(bestScore !== null ? parseInt(bestScore) : 0));
+    }
+    loadData()
+  }, [])  
+  return(
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="StartPage" component={StartPage} options={{animation: "slide_from_left"}}/>
+        <Stack.Screen name="GamePage" component={GamePage} options={{animation: "slide_from_right"}}/>
+        <Stack.Screen name="Leaders" component={LeadersPage} options={{animation: "slide_from_right"}}/>
+    </Stack.Navigator> 
+  )
+}
 
+
+export default function App({navigation} : any) {
   return (
-    <SafeAreaView style={{flex: 1}}>
-      <StatusBar backgroundColor='#000000e6'/>
-      <Image source={require("@/assets/images/Main.png")} resizeMode='cover' style={{flex: 1, alignSelf: 'center', width: Dimensions.get('screen').width, height: Dimensions.get('screen').height, position: "absolute"}}/>
-      <SettingsButton/>
-      <View>
-
-      </View>
-      <View style={{position: "absolute", top: 300}}>
-        <View style={{flexDirection: "row", flexWrap: "wrap", width: 400, alignSelf: "center"}}>
-          {keyboard.map(item => (
-            <Pressable key={item.text} style={[{backgroundColor: "#302E2E", width: 70, height: 70, marginTop: 20, justifyContent: "center", borderRadius: 50, marginLeft: 20}, item.text == "done" ? {height: 165} : {height: 70}]}>
-              {item.text != "delete" ? <Text style={{color: "white", textAlign: "center", textShadowRadius: 30, textShadowColor: "white", fontSize: 40, fontFamily: "MyCustomFont"}}>{item.text}</Text> : <View style={{alignSelf: "center", shadowColor: "white", shadowRadius: 30, shadowOpacity: 1, shadowOffset: {width: 0, height: 0}}}><Delete/></View>}
-            </Pressable>
-          ))}
-          
-        </View>
-      </View>
-    </SafeAreaView>
+    <Provider store={Store}>
+      <AppContent/>
+    </Provider>
   );
 }

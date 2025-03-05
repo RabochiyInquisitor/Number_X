@@ -1,26 +1,34 @@
-/**
- * Below are the colors that are used in the app. The colors are defined in the light and dark mode.
- * There are many other ways to style your app. For example, [Nativewind](https://www.nativewind.dev/), [Tamagui](https://tamagui.dev/), [unistyles](https://reactnativeunistyles.vercel.app), etc.
- */
-
-const tintColorLight = '#0a7ea4';
-const tintColorDark = '#fff';
-
-export const Colors = {
-  light: {
-    text: '#11181C',
-    background: '#fff',
-    tint: tintColorLight,
-    icon: '#687076',
-    tabIconDefault: '#687076',
-    tabIconSelected: tintColorLight,
-  },
-  dark: {
-    text: '#ECEDEE',
-    background: '#151718',
-    tint: tintColorDark,
-    icon: '#9BA1A6',
-    tabIconDefault: '#9BA1A6',
-    tabIconSelected: tintColorDark,
-  },
-};
+export const colors = {
+    "sakura": {
+        "topField": "#f7e8e8",
+        "bottomField": "#faf6f4",
+        "button": "#f1d8d9",
+        "functional": "#dd82b5",
+        "done": "#c99597",
+        "text": "black"
+    },
+    "city": {
+        "topField": "#8da0a4",
+        "bottomField": "#b0bfc2",
+        "button": "#5b7470",
+        "functional": "#3a4740",
+        "done": "#202622",
+        "text": "black"
+    },
+    "fire": {
+        "topField": "#000000",
+        "bottomField": "#404040",
+        "button": "#333333",
+        "functional": "#a5a5a5",
+        "done": "#eea441",
+        "text": "white"
+    },
+    "forest": {
+        "topField": "#c5beab",
+        "bottomField": "#e1dbcb",
+        "button": "#9ca089",
+        "functional": "#868b6b",
+        "done": "#5d624c",
+        "text": "black"
+    }
+}
