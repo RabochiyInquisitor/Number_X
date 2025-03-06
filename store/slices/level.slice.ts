@@ -11,6 +11,7 @@ const levelSlice = createSlice({
     reducers: {
         setLevel(state = initialState, action: PayloadAction<string>) {
             state.level = action.payload; 
+            console.log(action.payload)
             LoadToAsyncStorage('level', action.payload)
         },
     },

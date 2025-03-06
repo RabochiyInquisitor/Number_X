@@ -12,6 +12,7 @@ import { GetFromAsyncStorage } from '@/utils/AsyncStorage';
 import { setTheme } from '@/store/slices/theme.slice';
 import { setScore } from '@/store/slices/score.slice';
 
+
 const Stack = createNativeStackNavigator();
 
 
@@ -24,19 +25,28 @@ const AppContent = () => {
       const bestScore = await GetFromAsyncStorage('bestScore')
 
       console.log(level, theme, bestScore)
+      console.log(typeof(level))
+      console.log(level == "Middle")
       
-      dispatcher(setLevel(level === 'Easy' || level === 'Medium' || level === 'Hard' ? level : 'Easy'));
+      dispatcher(setLevel(level == 'Easy' || level == 'Middle' || level == 'Hard' ? level : '000'));
       dispatcher(setTheme(theme === 'sakura' || theme === 'city' || theme === 'forest' ? theme : 'sakura'));
-      dispatcher(setScore(bestScore !== null ? parseInt(bestScore) : 0));
+      dispatcher(setScore(bestScore !== null && bestScore !== undefined ? parseInt(bestScore) : 0));
+
+      
     }
     loadData()
   }, [])  
+  
+  const currentTheme = useSelector((state : RootState) => state.theme.theme)
   return(
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <>
+      <StatusBar backgroundColor={colors[currentTheme].topField}></StatusBar>
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="StartPage" component={StartPage} options={{animation: "slide_from_left"}}/>
         <Stack.Screen name="GamePage" component={GamePage} options={{animation: "slide_from_right"}}/>
         <Stack.Screen name="Leaders" component={LeadersPage} options={{animation: "slide_from_right"}}/>
-    </Stack.Navigator> 
+      </Stack.Navigator> 
+    </>
   )
 }
 

@@ -8,6 +8,7 @@ import { GamePageStyle } from './GamePage.style';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
 import { StopWatch } from '@/assets/icons/stopwatch';
+import { indexes } from '@/constants/idnexes';
 
 export const GamePage = ({route} : {route : any}) => {
     const [userInput, setUserInput] = useState("")
@@ -25,18 +26,26 @@ export const GamePage = ({route} : {route : any}) => {
     const level = useSelector((state : RootState) => state.level.level)
     const bestScore = useSelector((state : RootState) => state.score.bestScore)
 
-    const [time, setTime] = useState(level == 'Easy' ? "05:00" : level == 'Middle' ? '03:00' : '02:00')
+    const [time, setTime] = useState(level == 'Easy' ? "01:00" : level == 'Middle' ? '01:00' : '01:00')
     let timeIntervalId : any;
     
 
 
     const [currentExample, setCurrentExample] = useState<any>(Generate(level))
 
+    
+
     const getResult = () => {
         if(userInput == currentExample[0])
         {
+            let operation : '+' | '-' = "+"
             setUserInput('Правильно!')
-            setScore(score + 1)
+            setScore(score + (currentExample[1]
+                .split("")
+                .map((item : string) => {item == '-' || item == "+" ? operation = item : null; return Number(item); })
+                .filter((item : any) => !isNaN(item))
+                .reduce((accumulator: number, currentValue: number) => accumulator + currentValue) * indexes[operation]))
+            
             setResultOutput(true)
             setTimeout(() => {
             setCurrentExample(Generate(level))
@@ -57,22 +66,32 @@ export const GamePage = ({route} : {route : any}) => {
     }
     const updateTimer = useCallback(() => {
         const [minutes, seconds] = time.split(':').map(Number);
+        
+        if (minutes === 0 && seconds === 0) {
+            clearInterval(timeIntervalId);
+            return; 
+        }
+    
         let newSeconds = seconds - 1;
         let newMinutes = minutes;
-
+    
         if (newSeconds < 0) {
             newSeconds = 59;
             newMinutes--;
         }
-
+    
+        if (newMinutes < 0) {
+            newMinutes = 0;
+            newSeconds = 0;
+        }
+    
         const formattedTime = `${String(newMinutes).padStart(2, '0')}:${String(newSeconds).padStart(2, '0')}`;
-
         setTime(formattedTime);
-    }, [time]); // time в зависимости
-
+    }, [time]);
+    
     useEffect(() => {
-        timeIntervalId = setInterval(updateTimer, 1000);
-
+        const timeIntervalId = setInterval(updateTimer, 1000);
+    
         return () => clearInterval(timeIntervalId);
     }, [updateTimer]);
 
@@ -100,7 +119,7 @@ export const GamePage = ({route} : {route : any}) => {
                     renderItem={({item}) => (
                         <View>
                         {item.value.map(element => (
-                            <Pressable key={element} style={[{backgroundColor: colors[theme].button, marginTop: 20, justifyContent: "center", height: 70, width: 70, borderRadius: 50}, item.id == "1" ? {} : {marginLeft: 20}]} onPress={element == "delete" ? () => {!isResultOutput ? setUserInput(prev => prev.length > 0 ? prev.slice(0, -1) : prev) : null} : element == "done" ? () => {userInput != "" ? !isResultOutput ? getResult() : null : null} : () => {!isResultOutput ? setUserInput(prev => prev + element) : null}}>
+                            <Pressable key={element} style={[{backgroundColor: colors[theme].button, marginTop: 20, justifyContent: "center", height: 70, width: 100, borderRadius: 50}, item.id == "1" ? {} : {marginLeft: 20}]} onPress={element == "delete" ? () => {!isResultOutput ? setUserInput(prev => prev.length > 0 ? prev.slice(0, -1) : prev) : null} : element == "done" ? () => {userInput != "" ? !isResultOutput ? getResult() : null : null} : () => {!isResultOutput ? setUserInput(prev => prev + element) : null}}>
                             {element == "delete" ? <View style={GamePageStyle.deleteButton}><Delete color={colors[theme].text}/></View> : element == "done" ? <Text style={[GamePageStyle.doneButton, {color: colors[theme].text}]}>=</Text> : <Text style={[GamePageStyle.ordinaryButtonText, {color: colors[theme].text}]}>{element}</Text>}
                             </Pressable>
                         ))}

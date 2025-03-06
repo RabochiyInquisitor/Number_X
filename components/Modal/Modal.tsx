@@ -10,6 +10,7 @@ import { RootState } from "@/store";
 export const Modal = ({transformValue, theme, changeTheme} : {transformValue : any, theme : 'sakura' | 'forest' | 'city', changeTheme : any}) => {
     const dispatcher = useDispatch()
     const level = useSelector((state : RootState) => state.level.level)
+   
     const themesList = [
         {id: '1', theme: 'sakura'},
         {id: '2', theme: 'city'},

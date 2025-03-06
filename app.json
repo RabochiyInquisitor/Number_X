@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "number_x",
+    "name": "Number_X",
     "slug": "numberx",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -16,7 +16,7 @@
         "foregroundImage": "./assets/images/main_icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.markus.number_X"
+      "package": "com.markus.Number_X"
     },
     "web": {
       "bundler": "metro",
@@ -28,7 +28,7 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/splash-icon.png",
+          "image": "./assets/images/main_icon.png",
           "imageWidth": 200,
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
