@@ -7,7 +7,7 @@ import { UseSelector } from "react-redux";
 import { setLevel } from "@/store/slices/level.slice";
 import { RootState } from "@/store";
 
-export const Modal = ({transformValue, theme, changeTheme} : {transformValue : any, theme : 'sakura' | 'forest' | 'city', changeTheme : any}) => {
+export const Modal = ({transformValue, theme} : {transformValue : any, theme : 'sakura' | 'forest' | 'city'}) => {
     const dispatcher = useDispatch()
     const level = useSelector((state : RootState) => state.level.level)
    
@@ -22,7 +22,6 @@ export const Modal = ({transformValue, theme, changeTheme} : {transformValue : a
         {id: '3', level: 'Hard'}
     ]
     const toogleTheme = (theme : 'sakura' | 'city' | 'forest') => {
-        changeTheme(theme)
         dispatcher(setTheme(theme))
     }
     return(

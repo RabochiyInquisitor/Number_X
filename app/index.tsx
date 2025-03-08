@@ -3,7 +3,6 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { GamePage } from './pages/GamePage/GamePage';
 import { StartPage } from './pages/StartPage/StartPage';
 import { Provider, useDispatch, useSelector, UseSelector } from 'react-redux';
-import { RootState, Store } from '@/store';
 import { StatusBar } from 'react-native';
 import { colors } from '@/constants/Colors';
 import { LeadersPage } from './pages/LeadersPage/LeadersPage';
@@ -11,31 +10,13 @@ import { setLevel } from '@/store/slices/level.slice';
 import { GetFromAsyncStorage } from '@/utils/AsyncStorage';
 import { setTheme } from '@/store/slices/theme.slice';
 import { setScore } from '@/store/slices/score.slice';
-
+import { Store, persistor, RootState } from '@/store';
+import { PersistGate } from 'redux-persist/integration/react';
 
 const Stack = createNativeStackNavigator();
 
 
 const AppContent = () => {
-  const dispatcher = useDispatch()
-  useEffect(() => {   
-    const loadData = async () => {
-      const level = await GetFromAsyncStorage('level')
-      const theme = await GetFromAsyncStorage('theme')
-      const bestScore = await GetFromAsyncStorage('bestScore')
-
-      console.log(level, theme, bestScore)
-      console.log(typeof(level))
-      console.log(level == "Middle")
-      
-      dispatcher(setLevel(level == 'Easy' || level == 'Middle' || level == 'Hard' ? level : '000'));
-      dispatcher(setTheme(theme === 'sakura' || theme === 'city' || theme === 'forest' ? theme : 'sakura'));
-      dispatcher(setScore(bestScore !== null && bestScore !== undefined ? parseInt(bestScore) : 0));
-
-      
-    }
-    loadData()
-  }, [])  
   
   const currentTheme = useSelector((state : RootState) => state.theme.theme)
   return(
@@ -54,7 +35,9 @@ const AppContent = () => {
 export default function App({navigation} : any) {
   return (
     <Provider store={Store}>
-      <AppContent/>
+      <PersistGate loading={null} persistor={persistor}>
+        <AppContent/>
+      </PersistGate>
     </Provider>
   );
 }

@@ -9,9 +9,11 @@ import { Lock } from "@/assets/icons/lock";
 import { Cup } from "@/assets/icons/cup";
 import { Help } from "@/assets/icons/help";
 import { Message } from "@/utils/message";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store";
 
 export const StartPage = (props : any) => {
-    const [theme, changeTheme] = useState<'sakura' | 'city' | 'forest'>('sakura');
+    const theme = useSelector((state : RootState) => state.theme.theme)
     const translate_y = useRef(new Animated.Value(Dimensions.get('window').height / 2)).current
     const setting_press = useRef(new Animated.Value(0)).current
     const [isModalOpen, setModalOpen] = useState(false)
@@ -103,7 +105,7 @@ export const StartPage = (props : any) => {
                 </View>
                 <Text style={[StartPageStyle.gamePageButtonText, {color: colors[theme].done}]}>Дуэль</Text>
             </Pressable>
-            <Modal transformValue={translate_y} theme={theme} changeTheme={changeTheme}/>
+            <Modal transformValue={translate_y} theme={theme}/>
         </View>
     )
 }

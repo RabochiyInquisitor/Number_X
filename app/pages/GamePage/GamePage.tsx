@@ -106,7 +106,7 @@ export const GamePage = ({route} : {route : any}) => {
                 <Text style={GamePageStyle.Score}>Счёт: {score}</Text>
             </View> : <View style={GamePageStyle.stopWatch}><StopWatch/><Text style={GamePageStyle.time}>{time}</Text></View>}
             <View style={GamePageStyle.exampleBlock}>
-            <Text style={[GamePageStyle.exampleText, {color: colors[theme].text}]}>{typeof(currentExample[0]) !== 'string' ? currentExample[1] : currentExample}</Text>
+                <Text style={[GamePageStyle.exampleText, {color: colors[theme].text}]}>{typeof(currentExample[0]) !== 'string' ? currentExample[1] : currentExample}</Text>
             </View>
             <View style={GamePageStyle.userInputBlock}>
             <Text style={[GamePageStyle.userInputText, typeof(userInput[0]) !== 'string' ? {fontSize: 80} : {fontSize: 50}, {color: colors[theme].text}]}>{userInput}</Text>
@@ -119,7 +119,7 @@ export const GamePage = ({route} : {route : any}) => {
                     renderItem={({item}) => (
                         <View>
                         {item.value.map(element => (
-                            <Pressable key={element} style={[{backgroundColor: colors[theme].button, marginTop: 20, justifyContent: "center", height: 70, width: 100, borderRadius: 50}, item.id == "1" ? {} : {marginLeft: 20}]} onPress={element == "delete" ? () => {!isResultOutput ? setUserInput(prev => prev.length > 0 ? prev.slice(0, -1) : prev) : null} : element == "done" ? () => {userInput != "" ? !isResultOutput ? getResult() : null : null} : () => {!isResultOutput ? setUserInput(prev => prev + element) : null}}>
+                            <Pressable key={element} style={[{backgroundColor: colors[theme].button}, GamePageStyle.cummonButton, item.id == "1" ? {} : {marginLeft: 20}]} onPress={element == "delete" ? () => {!isResultOutput ? setUserInput(prev => prev.length > 0 ? prev.slice(0, -1) : prev) : null} : element == "done" ? () => {userInput != "" ? !isResultOutput ? getResult() : null : null} : () => {!isResultOutput ? setUserInput(prev => prev + element) : null}}>
                             {element == "delete" ? <View style={GamePageStyle.deleteButton}><Delete color={colors[theme].text}/></View> : element == "done" ? <Text style={[GamePageStyle.doneButton, {color: colors[theme].text}]}>=</Text> : <Text style={[GamePageStyle.ordinaryButtonText, {color: colors[theme].text}]}>{element}</Text>}
                             </Pressable>
                         ))}

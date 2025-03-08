@@ -7,11 +7,23 @@ const windowWidth = Dimensions.get('window').width
 
 let ScoreTextS = 14
 let timeTextS = 16
+let buttonWidth = 100
+let buttonHeight = 70
+let buttonTextS = 40
+let exampleTextS = 60
+let exampleHeight = 100
+let userInputTextS = 80
 
 if(windowWidth < 380)
 {
     ScoreTextS = 12
+    buttonHeight = 65
+    buttonWidth = 95
+    buttonTextS = 38
     timeTextS = 14
+    exampleTextS = 50
+    exampleHeight = 70
+    userInputTextS = 70
 }
 
 export const GamePageStyle = StyleSheet.create({
@@ -37,11 +49,11 @@ export const GamePageStyle = StyleSheet.create({
     },
     exampleBlock: {
         alignSelf: 'center', 
-        height: 100, 
+        height: exampleHeight, 
         marginTop: 100
     },
     exampleText: { 
-        fontSize: 60, 
+        fontSize: exampleTextS, 
         textAlign: "center"
     },
     userInputBlock: {
@@ -49,18 +61,17 @@ export const GamePageStyle = StyleSheet.create({
         marginTop: 110
     },
     userInputText: { 
-        height: 80, 
+        height: userInputTextS, 
         textAlign: "center"
     },
     keyboard: {
         alignSelf: "center"
     },
     cummonButton: {
-        backgroundColor: colors.sakura.button, 
         marginTop: 20, 
         justifyContent: "center", 
-        height: 70, 
-        width: 70, 
+        height: buttonHeight, 
+        width: buttonWidth, 
         borderRadius: 50
     },
     firstRange: {
@@ -78,7 +89,7 @@ export const GamePageStyle = StyleSheet.create({
     },
     ordinaryButtonText: {
        textAlign: "center", 
-       fontSize: 40 
+       fontSize: buttonTextS 
     },
     modal: {
         height: Dimensions.get('window').height / 2, 
