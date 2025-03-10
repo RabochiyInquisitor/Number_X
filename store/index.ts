@@ -5,6 +5,10 @@ import { levelReducer } from './slices/level.slice';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { persistStore, persistReducer } from 'redux-persist';
 import { combineReducers } from 'redux';
+import { showingReducer } from './slices/showing';
+import { filterReducer } from './slices/filter';
+import { globalReducer } from './slices/global_slice';
+import { tokenReducer } from './slices/unic_token';
 
 const persistConfig = {
     key: "root",
@@ -15,6 +19,10 @@ const rootReducer = combineReducers({
     theme: themeReducer,
     score: scoreReducer,
     level: levelReducer,
+    show: showingReducer,
+    filter: filterReducer,
+    global: globalReducer,
+    token: tokenReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

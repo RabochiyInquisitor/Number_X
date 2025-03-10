@@ -2,7 +2,7 @@ import { LoadToAsyncStorage } from '@/utils/AsyncStorage';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState = {
-    level: 'Easy', // начальное состояние темы
+    level: 'Easy', 
 };
 
 const levelSlice = createSlice({
@@ -12,7 +12,6 @@ const levelSlice = createSlice({
         setLevel(state = initialState, action: PayloadAction<string>) {
             state.level = action.payload; 
             console.log(action.payload)
-            LoadToAsyncStorage('level', action.payload)
         },
     },
 });

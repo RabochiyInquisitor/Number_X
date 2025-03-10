@@ -26,7 +26,9 @@ export const LeadersStyle = StyleSheet.create({
     },
     text: {
         fontSize: nameTextS,
-        fontWeight: "600"
+        fontWeight: "600",
+        marginRight: 10,
+        textAlign: "center"
     },
     personList: {
         alignSelf: "center",
@@ -40,5 +42,21 @@ export const LeadersStyle = StyleSheet.create({
         alignItems: "center",
         marginTop: 50,
         alignSelf: "center"
+    },
+    refresh: {
+        position: "absolute",
+        right: 0,
+        marginRight: 10,
+        marginTop: 10
+    },
+    addMeButton: {
+        width: 150,
+        height: 50,
+        borderRadius: 50,
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: 50,
+        alignSelf: "center",
+        marginBottom: 50
     }
 })

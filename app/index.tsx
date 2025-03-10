@@ -6,12 +6,11 @@ import { Provider, useDispatch, useSelector, UseSelector } from 'react-redux';
 import { StatusBar } from 'react-native';
 import { colors } from '@/constants/Colors';
 import { LeadersPage } from './pages/LeadersPage/LeadersPage';
-import { setLevel } from '@/store/slices/level.slice';
-import { GetFromAsyncStorage } from '@/utils/AsyncStorage';
-import { setTheme } from '@/store/slices/theme.slice';
-import { setScore } from '@/store/slices/score.slice';
 import { Store, persistor, RootState } from '@/store';
 import { PersistGate } from 'redux-persist/integration/react';
+import { Total } from '@/store/slices/global_slice';
+import { setToken } from '@/store/slices/unic_token';
+import { GeneratePersonalToken } from '@/core/algoritms/personal_token';
 
 const Stack = createNativeStackNavigator();
 
@@ -19,6 +18,14 @@ const Stack = createNativeStackNavigator();
 const AppContent = () => {
   
   const currentTheme = useSelector((state : RootState) => state.theme.theme)
+  const dispatcher = useDispatch()
+  const token = useSelector((state : RootState) => state.token.token)
+  /*useEffect(() => {
+    dispatcher(Total.resetGlobalState())
+  }, [])*/
+  useEffect(() => {
+    token ? dispatcher(setToken(GeneratePersonalToken())) : null
+  }, [])
   return(
     <>
       <StatusBar backgroundColor={colors[currentTheme].topField}></StatusBar>

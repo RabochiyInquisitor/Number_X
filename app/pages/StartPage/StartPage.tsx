@@ -9,14 +9,16 @@ import { Lock } from "@/assets/icons/lock";
 import { Cup } from "@/assets/icons/cup";
 import { Help } from "@/assets/icons/help";
 import { Message } from "@/utils/message";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store";
+import { setTimeShowing, setFreeShowing } from "@/store/slices/showing";
 
 export const StartPage = (props : any) => {
     const theme = useSelector((state : RootState) => state.theme.theme)
     const translate_y = useRef(new Animated.Value(Dimensions.get('window').height / 2)).current
     const setting_press = useRef(new Animated.Value(0)).current
     const [isModalOpen, setModalOpen] = useState(false)
+    const dispatcher = useDispatch()
     
     const headerList = [
         {id: "1", item: "leaders"},
@@ -70,7 +72,7 @@ export const StartPage = (props : any) => {
                     contentContainerStyle={{justifyContent: "space-between", flexGrow: 1, alignItems: "center"}}
                     data={headerList}
                     renderItem={({item}) => (
-                        item.item == "leaders" ? <Pressable onPress={() => Message('Тут я ещё не закончил')}><Cup theme={theme}/></Pressable> : item.item == "help" ? <Pressable onPress={() => {Linking.openURL('https://t.me/Cy_b_er_1')}}><Help theme={theme}/></Pressable> : <Animated.View style={[StartPageStyle.settings, {transform: [{rotateZ: degrees}]}]}>
+                        item.item == "leaders" ? <Pressable onPress={() => props.navigation.navigate('Leaders')}><Cup theme={theme}/></Pressable> : item.item == "help" ? <Pressable onPress={() => {Linking.openURL('https://t.me/Cy_b_er_1')}}><Help theme={theme}/></Pressable> : <Animated.View style={[StartPageStyle.settings, {transform: [{rotateZ: degrees}]}]}>
                         <Pressable onPress={() => {
                             if(isModalOpen)
                             {
@@ -105,7 +107,7 @@ export const StartPage = (props : any) => {
                 </View>
                 <Text style={[StartPageStyle.gamePageButtonText, {color: colors[theme].done}]}>Дуэль</Text>
             </Pressable>
-            <Modal transformValue={translate_y} theme={theme}/>
+            <Modal transformValue={translate_y}/>
         </View>
     )
 }

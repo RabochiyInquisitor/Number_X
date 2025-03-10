@@ -15,7 +15,6 @@ const themeSlice = createSlice({
     reducers: {
         setTheme(state = initialState, action: PayloadAction<'city' | 'forest' | 'sakura'>) {
             state.theme = action.payload; 
-            LoadToAsyncStorage('theme', action.payload)
         },
     },
 });

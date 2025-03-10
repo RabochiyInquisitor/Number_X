@@ -25,6 +25,17 @@ if(windowWidth < 380)
     exampleHeight = 70
     userInputTextS = 70
 }
+else if(windowWidth  < 360)
+{
+    ScoreTextS = 12
+    buttonHeight = 65
+    buttonWidth = 95
+    buttonTextS = 38
+    timeTextS = 14
+    exampleTextS = 50
+    exampleHeight = 50
+    userInputTextS = 70
+}
 
 export const GamePageStyle = StyleSheet.create({
     main: {

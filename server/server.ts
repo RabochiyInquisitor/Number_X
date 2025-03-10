@@ -8,7 +8,7 @@ class Server
     {
         try
         {
-            const topUsersList = await axios.get('http://192.168.1.105:7000/get')
+            const topUsersList = await axios.get('http://90.156.209.13:7000/get')
             return topUsersList.data
         }
         catch(e)
@@ -16,11 +16,11 @@ class Server
             console.log(e)
         }
     }
-    async SendResults()
+    async SendResults(data : any)
     {
         try
         {
-            const sendUserResults = await axios.post('http://192.168.1.105:7000/set')
+            const sendUserResults = await axios.post('http://90.156.209.13:7000/set', data)
             return sendUserResults.data
         }
         catch(e)
