@@ -54,7 +54,7 @@ export const GamePage = ({route} : {route : any}) => {
                     setCurrentExample(Generate(level))
                     setResultOutput(false)
                     setUserInput("")
-                }, 1500)
+                }, 750)
                 setScore(score + Number((currentExample[1]
                     .split("")
                     .map((item : string) => {item == '-' || item == "+" ? operation = item : null; return Number(item); })
@@ -73,12 +73,13 @@ export const GamePage = ({route} : {route : any}) => {
             {
                 setCurrentExample(`Ответ: ${currentExample[0]}`)
                 setUserInput('Не правильно!')
+                setScore(0)
                 setResultOutput(true)
                 setTimeout(() => {
                     setCurrentExample(Generate(level))
                     setResultOutput(false)
                     setUserInput("")
-                }, 1500)
+                }, 750)
             }
             else
             {
@@ -99,8 +100,6 @@ export const GamePage = ({route} : {route : any}) => {
             newSeconds = 0;
             newMinutes++;
         }
-    
-        
     
         const formattedTime = `${String(newMinutes).padStart(2, '0')}:${String(newSeconds).padStart(2, '0')}`;
         setTime(formattedTime);

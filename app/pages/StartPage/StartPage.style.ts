@@ -2,14 +2,17 @@ import { StyleSheet } from "react-native";
 import { Dimensions } from "react-native";
 
 const windowWidth = Dimensions.get('window').width
-
+const windowHeight = Dimensions.get('window').height
 
 let logoTextS = 50
+let logoMarginBottom = 100
 
 if(windowWidth < 380)
 {
-    logoTextS = 30
+    logoTextS = 50
+    logoMarginBottom = 70
 }
+
 
 export const StartPageStyle = StyleSheet.create({
     main: {
@@ -37,7 +40,7 @@ export const StartPageStyle = StyleSheet.create({
         marginTop: 150,
         width: "100%",
         height: 100,
-        marginBottom: 100
+        marginBottom: logoMarginBottom
     },
     logoText: {
         fontSize: logoTextS,

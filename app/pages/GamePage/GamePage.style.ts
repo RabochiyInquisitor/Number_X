@@ -13,17 +13,19 @@ let buttonTextS = 40
 let exampleTextS = 60
 let exampleHeight = 100
 let userInputTextS = 80
+let userInputTopBottom = 110
 
 if(windowWidth < 380)
 {
     ScoreTextS = 12
-    buttonHeight = 65
-    buttonWidth = 95
+    buttonHeight = 60
+    buttonWidth = 90
     buttonTextS = 38
     timeTextS = 14
     exampleTextS = 50
     exampleHeight = 70
     userInputTextS = 70
+    userInputTopBottom = 80
 }
 else if(windowWidth  < 360)
 {
@@ -69,7 +71,7 @@ export const GamePageStyle = StyleSheet.create({
     },
     userInputBlock: {
         width: "100%", 
-        marginTop: 110
+        marginTop: userInputTopBottom
     },
     userInputText: { 
         height: userInputTextS, 
